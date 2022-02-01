@@ -1,5 +1,5 @@
 # WORDLEPY
-WORDLE Script in Python
+**WORDLE Script in Python**
 
 Make sure to put `frequent_5_char_words.csv` file in same directory that code is in. also you need to install packages mentioned bellow:  
 1. numpy: `conda install -c anaconda numpy`
