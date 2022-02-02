@@ -1,4 +1,4 @@
-from matplotlib.pyplot import close
+from turtle import color
 import numpy as np
 import random
 import pandas as pd
@@ -16,9 +16,9 @@ def myWORDLE_Game():
     tries = []
     for j in range(6):
         b = 0
-        while not b: 
+        while not b:
             a = input("enter a word:\n")
-            if a=='exit': sys.exit()
+            if a.lower()=='exit': sys.exit()
             elif a in words:
                 if a in tries:
                     b = False
@@ -57,8 +57,6 @@ def myWORDLE_Game():
                     elif counts[a[i]]>1 and chosen_word_frequency[a[i]]==1 and info[a[i]] ==False:
                         if chosen_word.index(a[i]) in [i.start() for i in re.finditer(a[i], a)]:
                             res += emoji.emojize(':red_square:')
-                            # if a[i] in letters:
-                            #     letters.remove(a[i])
                             
                         else:
                             res += emoji.emojize(':yellow_square:')
@@ -103,4 +101,19 @@ def myWORDLE_Game():
         txt_file.write("{} {} {}\n".format(str(datetime.date.today()) , "None" , chosen_word))
         txt_file.close()
 
-myWORDLE_Game()
+
+class WORDLE:
+    def start():
+        myWORDLE_Game()
+
+    def stats():
+        import matplotlib.pyplot as plt
+        df = pd.read_csv("My WORDLE Log.txt" , sep=" " , header=None)
+        plt.bar(list(df[df.iloc[:,1]!='None'][1].value_counts(ascending = True).to_dict().keys()), height= list(df[df.iloc[:,1]!='None'][1].value_counts(ascending = True).to_dict().values()))
+        plt.title("stats of success" , size = 20)
+        plt.xlabel("i'th guess" , size = 12)
+        plt.ylabel("ّFrequency" , size = 12)
+        plt.suptitle("Success rate = {}".format(round(len(df[df.iloc[:,1]!='None'][1])/len(df) , 2)) , color = 'g')
+        plt.show()
+
+WORDLE.start()
