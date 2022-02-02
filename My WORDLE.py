@@ -1,4 +1,3 @@
-from turtle import color
 import numpy as np
 import random
 import pandas as pd
@@ -104,9 +103,15 @@ def myWORDLE_Game():
 
 class WORDLE:
     def start():
+        """
+        Start the game. Enjoy!
+        """
         myWORDLE_Game()
 
     def stats():
+        """
+        statistical analysis of historical results.
+        """
         import matplotlib.pyplot as plt
         df = pd.read_csv("My WORDLE Log.txt" , sep=" " , header=None)
         plt.bar(list(df[df.iloc[:,1]!='None'][1].value_counts(ascending = True).to_dict().keys()), height= list(df[df.iloc[:,1]!='None'][1].value_counts(ascending = True).to_dict().values()))
@@ -115,5 +120,19 @@ class WORDLE:
         plt.ylabel("ّFrequency" , size = 12)
         plt.suptitle("Success rate = {}".format(round(len(df[df.iloc[:,1]!='None'][1])/len(df) , 2)) , color = 'g')
         plt.show()
+
+    def history():
+        """
+        Historical plot of gaming.
+        """
+        import matplotlib.pyplot as plt
+        df = pd.read_csv("My WORDLE Log.txt" , sep=" " , header=None)
+        plt.figure()
+        df.iloc[:,0].value_counts().plot(kind='bar')
+        plt.title("Gaming History" , size = 20)
+        plt.xlabel("Dates" , size = 13)
+        plt.ylabel("Frequency" , size = 13)
+        plt.xticks(rotation=30 , size = 8)
+        plt.show();
 
 WORDLE.start()
