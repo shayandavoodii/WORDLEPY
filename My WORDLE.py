@@ -64,7 +64,7 @@ def myWORDLE_Game():
 
         if a.lower() == chosen_word:
             show[j , :] = emoji.emojize(":green_square::green_square::green_square::green_square::green_square:")
-            print("\n{}/6    Congrats! its true : {}".format(j+1 , chosen_word))
+            print(emoji.emojize("\n{}/6        Congrats!:tada: its true : {}".format(j+1 , chosen_word) , use_aliases=True))
             for row in range(j+1):
                 print(show[row][0][0] , tries[row])
 
@@ -149,11 +149,13 @@ class WORDLE:
         """
         import matplotlib.pyplot as plt
         df = pd.read_csv("My WORDLE Log.txt" , sep=" " , header=None)
-        plt.bar(list(df[df.iloc[:,1]!='None'][1].value_counts(ascending = True).to_dict().keys()), height= list(df[df.iloc[:,1]!='None'][1].value_counts(ascending = True).to_dict().values()))
-        plt.title("stats of success" , size = 20)
+        pairs = sorted(df[df.iloc[:,1]!='None'][1].value_counts().to_dict().items())
+        plt.bar([value[0] for value in pairs], height= [value[1] for value in pairs])
+        plt.title("Success rate = {}".format(round(len(df[df.iloc[:,1]!='None'][1])/len(df) , 2)) , color = 'g')
+        
         plt.xlabel("i'th guess" , size = 12)
         plt.ylabel("ّFrequency" , size = 12)
-        plt.suptitle("Success rate = {}".format(round(len(df[df.iloc[:,1]!='None'][1])/len(df) , 2)) , color = 'g')
+        plt.suptitle("stats of success" , size = 20)
         plt.show()
 
     def history():
@@ -162,9 +164,9 @@ class WORDLE:
         """
         import matplotlib.pyplot as plt
         df = pd.read_csv("My WORDLE Log.txt" , sep=" " , header=None)
-        plt.figure(figsize=(12,5))
         fig, ax = plt.subplots()
-        fig1 = ax.bar(list(df.iloc[:,0].value_counts().to_dict().keys()) , list(df.iloc[:,0].value_counts().to_dict().values()))
+        sorted_dates = sorted(df.iloc[:,0].value_counts().to_dict().keys())
+        fig1 = ax.bar(sorted_dates , [df.iloc[:,0].value_counts().to_dict()[value] for value in sorted_dates])
         plt.title("Gaming History" , size = 20)
         plt.xlabel("Dates" , size = 13)
         plt.ylabel("Frequency" , size = 13)
