@@ -7,4 +7,6 @@ Make sure to put `frequent_5_char_words.csv` file in same directory that code is
 3. emoji: `conda install -c conda-forge emoji`  
 
 You can make 6 guess to infer the chosen word; That is a 5 letter meaningful english word.
-Enter `exit` to quit. 
+1. Enter `exit` to quit. 
+2. you can enter `?` to give up while you have guessed four wrong words
+3. enter `cls` to clear output
