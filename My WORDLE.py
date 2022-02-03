@@ -1,3 +1,4 @@
+from os import system
 import numpy as np
 import random
 import pandas as pd
@@ -13,13 +14,47 @@ def myWORDLE_Game():
     letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
     show = np.zeros((6,1) , dtype=[('x', '<U6')])
     tries = []
+    print("Hint: Enter 'cls' to clear the board\nEnter '?' if you want to give up\nEnter 'exit' if you want to quit.")
     for j in range(6):
         b = 0
         while not b:
             a = input("enter a word:\n")
+            
             if a.lower()=='exit': sys.exit()
-            elif a in words:
-                if a in tries:
+            
+            elif a=="?" and j>4:
+                print(" !! Never Give Up !!")
+                print("it was '{}'.".format(chosen_word))
+
+                with open("My WORDLE Log.txt" , 'a+') as txt_file:
+                    txt_file.write("{} {} {}\n".format(str(datetime.date.today()) , "None" , chosen_word))
+                    txt_file.close()
+                
+                sys.exit()
+
+            elif a.lower()=='cls' and j>0:
+                system('cls')
+                print("\n{}/6".format(j))
+                for row in range(len(tries)):
+                    if row==len(tries)-1:
+                        print(show[row][0][0] , tries[row] ,end='     ')
+                    else:
+                        print(show[row][0][0] , tries[row])
+
+                
+                f = 0
+                for k in range(4):
+                    if k ==0:
+                        print(" ".join(map(str , letters[f:f+8])).center(15))
+                    else:
+                        print("       \t\t    " , " ".join(map(str , letters[f:f+8])))
+                    f += 8
+
+                print("\n")                                
+
+            
+            elif a.lower() in words:
+                if a.lower() in tries:
                     b = False
                 else: b = True
             
@@ -127,12 +162,14 @@ class WORDLE:
         """
         import matplotlib.pyplot as plt
         df = pd.read_csv("My WORDLE Log.txt" , sep=" " , header=None)
-        plt.figure()
-        df.iloc[:,0].value_counts().plot(kind='bar')
+        plt.figure(figsize=(12,5))
+        fig, ax = plt.subplots()
+        fig1 = ax.bar(list(df.iloc[:,0].value_counts().to_dict().keys()) , list(df.iloc[:,0].value_counts().to_dict().values()))
         plt.title("Gaming History" , size = 20)
         plt.xlabel("Dates" , size = 13)
         plt.ylabel("Frequency" , size = 13)
         plt.xticks(rotation=30 , size = 8)
+        ax.bar_label(fig1, label_type='edge')
         plt.show();
 
 WORDLE.start()
