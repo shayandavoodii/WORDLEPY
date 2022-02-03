@@ -1,5 +1,4 @@
 from os import system
-import matplotlib.pyplot as plt
 import numpy as np
 import random
 import pandas as pd
