@@ -9,7 +9,7 @@ import re
 
 def myWORDLE_Game():
     words = pd.read_csv("frequent_5_char_words.csv").iloc[: , 1].to_list()
-    chosen_word = random.choice(words)
+    chosen_word = random.choice(words).lower()
     chosen_word_frequency = {char:chosen_word.count(char) for char in list(chosen_word)}
     letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
     show = np.zeros((6,1) , dtype=[('x', '<U6')])
@@ -56,13 +56,14 @@ def myWORDLE_Game():
             elif a.lower() in words:
                 if a.lower() in tries:
                     b = False
-                else: b = True
+                else: 
+                    b = True;  a = a.lower()
             
             else: b=False
             
         tries.append(a)
 
-        if a.lower() == chosen_word:
+        if a == chosen_word:
             show[j , :] = emoji.emojize(":green_square::green_square::green_square::green_square::green_square:")
             print(emoji.emojize("\n{}/6        Congrats!:tada: its true : {}".format(j+1 , chosen_word) , use_aliases=True))
             for row in range(j+1):
