@@ -151,12 +151,14 @@ class WORDLE:
         import matplotlib.pyplot as plt
         df = pd.read_csv("My WORDLE Log.txt" , sep=" " , header=None)
         pairs = sorted(df[df.iloc[:,1]!='None'][1].value_counts().to_dict().items())
-        plt.bar([value[0] for value in pairs], height= [value[1] for value in pairs])
-        plt.title("Success rate = {}".format(round(len(df[df.iloc[:,1]!='None'][1])/len(df) , 2)) , color = 'g')
+        fig, ax = plt.subplots()
+        fig1 = ax.bar([value[0] for value in pairs], height= [value[1] for value in pairs])
+        plt.title("Success rate = {}, Played = {}, Max Streak = {} , Current streak = {}".format(round(len(df[df.iloc[:,1]!='None'][1])/len(df) , 2) , len(df) , np.diff(np.where(df.iloc[: , 1] == "None")).max()-1 , len(df) - np.where(df.iloc[: , 1] == "None")[0].max() - 1) , color = 'g')
         
         plt.xlabel("i'th guess" , size = 12)
         plt.ylabel("ّFrequency" , size = 12)
         plt.suptitle("stats of success" , size = 20)
+        ax.bar_label(fig1, label_type='edge')
         plt.show()
 
     def history():
