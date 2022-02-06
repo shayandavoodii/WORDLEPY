@@ -22,6 +22,7 @@ class Ui_WORDLE(object):
     def setupUi(self, WORDLE):
         WORDLE.setObjectName("WORDLE")
         WORDLE.resize(863, 641)
+
         font = QtGui.QFont()
         font.setPointSize(12)
 
@@ -36,25 +37,29 @@ class Ui_WORDLE(object):
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
         
+        
+        
         self.label = QtWidgets.QLabel(self.horizontalLayoutWidget)
-        self.label.setText("")
         self.label.setFont(font)
+        self.label.setText("")
         self.label.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.label.setObjectName("label")
         self.horizontalLayout.addWidget(self.label)
         
         
+        
         self.label2 = QtWidgets.QLabel(self.horizontalLayoutWidget)
-        self.label2.setText("")
         self.label2.setFont(font)
+        self.label2.setText("")
         self.label2.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.label2.setObjectName("label2")
         self.horizontalLayout.addWidget(self.label2)
         
         
+        
         self.label_word = QtWidgets.QLabel(self.horizontalLayoutWidget)
-        self.label_word.setText("")
         self.label_word.setFont(font1)
+        self.label_word.setText("")
         self.label_word.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.label_word.setObjectName("label_word")
         self.horizontalLayout.addWidget(self.label_word)
@@ -65,6 +70,7 @@ class Ui_WORDLE(object):
         self.label3.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.label3.setObjectName("label3")
         self.horizontalLayout.addWidget(self.label3)
+        
         
         
         self.horizontalLayoutWidget_2 = QtWidgets.QWidget(WORDLE)
@@ -78,6 +84,7 @@ class Ui_WORDLE(object):
         
         
         
+        
         self.Stats_Button = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.Stats_Button.setObjectName("Stats_Button")
         self.Stats_Button.clicked.connect(self.stats)
@@ -86,35 +93,51 @@ class Ui_WORDLE(object):
         
         self.History_button = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.History_button.setObjectName("History_button")
-        self.verticalLayout_2.addWidget(self.History_button)
         self.History_button.clicked.connect(self.history)
+        self.verticalLayout_2.addWidget(self.History_button)
+        
+        
         self.horizontalLayout_2.addLayout(self.verticalLayout_2)
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
         
         
         self.input_text = QtWidgets.QLineEdit(self.horizontalLayoutWidget_2)
         self.input_text.setObjectName("input_text")
         self.input_text.setPlaceholderText("Enter The Word")
-        self.horizontalLayout_2.addWidget(self.input_text)
+        self.verticalLayout_3.addWidget(self.input_text)
+        
+        
+        self.placeHolder_label = QtWidgets.QLabel(self.horizontalLayoutWidget_2)
+        self.placeHolder_label.setFont(font)
+        self.placeHolder_label.setText("")
+        self.placeHolder_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.placeHolder_label.setObjectName("placeHolder_label")
+        self.verticalLayout_3.addWidget(self.placeHolder_label)
+        
+        
+        self.horizontalLayout_2.addLayout(self.verticalLayout_3)
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
         
         
         self.button = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.button.setObjectName("button")
-        self.verticalLayout.addWidget(self.button)
         self.button.clicked.connect(self.clicked)
-        self._submit_counter = 0          
+        self.verticalLayout.addWidget(self.button)
+        
         
         self.button2 = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.button2.setObjectName("button2")
+        self.button2.clicked.connect(self.reset_clicked)
         self.verticalLayout.addWidget(self.button2)
-        self.horizontalLayout_2.addLayout(self.verticalLayout)
-        self.button2.clicked.connect(self.reset_clicked) 
         
-        self.need_restart = True
+        self.horizontalLayout_2.addLayout(self.verticalLayout)
 
         self.retranslateUi(WORDLE)
         QtCore.QMetaObject.connectSlotsByName(WORDLE)
+
+        self.need_restart = True
 
     def retranslateUi(self, WORDLE):
         _translate = QtCore.QCoreApplication.translate
@@ -139,10 +162,14 @@ class Ui_WORDLE(object):
         # self.show = np.zeros((6,1) , dtype=[('x', '<U6')])
         self.show = []
         self.tries = []
+        self.potential_letters = []
+        self.place_holder = ["_" for l in range(5)]
+        self.place_holder_helper = [False for l in range(5)]
         self.label3.setText(emoji.emojize("Start!:tada:" , use_aliases=True))
         self.label.setText("")
         self.label2.setText("")
         self.label_word.setText("")
+        self.placeHolder_label.setText("")
 
 
     def clicked(self):
@@ -215,7 +242,7 @@ class Ui_WORDLE(object):
                                 self.need_restart = True
 
                             else:
-
+                                
                                 counts = {item:a.count(item) for item in set(a)}
                                 info = {item:0 for item in set(a)}
                                 res = ""
@@ -223,6 +250,9 @@ class Ui_WORDLE(object):
                                     if a[i] in self.chosen_word:
                                         if a[i] == self.chosen_word[i]:
                                             res += emoji.emojize(':green_square:')
+                                            if self.place_holder_helper[i] == False:
+                                                self.place_holder[i] = a[i]
+                                                self.place_holder_helper[i] = True
                                             info[a[i]] = True
                         # ======================================== yellow area ========================================
                                         else:
@@ -237,12 +267,19 @@ class Ui_WORDLE(object):
                                                     
                                                 else:
                                                     res += emoji.emojize(':yellow_square:')
+                                                    if a[i] not in self.potential_letters:
+                                                        self.potential_letters.append(a[i])
 
                                             elif counts[a[i]]>1 and self.chosen_word_frequency[a[i]]>1 and info[a[i]] ==True:
                                                 res += emoji.emojize(':yellow_square:')
+                                                if a[i] not in self.potential_letters:
+                                                    self.potential_letters.append(a[i])
 
                                             else: 
                                                 res += emoji.emojize(':yellow_square:')
+                                                if a[i] not in self.potential_letters:
+                                                    self.potential_letters.append(a[i])
+
                         # ======================================== yellow area ========================================
                                     
                                     else:
@@ -258,6 +295,7 @@ class Ui_WORDLE(object):
                                 self.label.setText("{}/6".format(self._submit_counter+1))
                                 # self.label2.setText(f"{self.show}")
                                 self.label2.setText("<br>".join(self.show))
+                                self.placeHolder_label.setText("{}<br>{}".format(','.join(self.place_holder) , self.potential_letters))
                                 self.label_word.setText("<br>".join(self.tries))
                                 self.label3.setText(f"{self.letters}")
                             
@@ -316,6 +354,7 @@ class Ui_WORDLE(object):
         plt.xticks(rotation=30 , size = 8)
         ax.bar_label(fig1, label_type='edge')
         plt.show();
+
 
 if __name__ == "__main__":
     import sys
