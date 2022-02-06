@@ -111,7 +111,8 @@ class Ui_WORDLE(object):
         self.verticalLayout.addWidget(self.button2)
         self.horizontalLayout_2.addLayout(self.verticalLayout)
         self.button2.clicked.connect(self.reset_clicked) 
-
+        
+        self.need_restart = True
 
         self.retranslateUi(WORDLE)
         QtCore.QMetaObject.connectSlotsByName(WORDLE)
@@ -124,7 +125,7 @@ class Ui_WORDLE(object):
         self.History_button.setText(_translate("WORDLE", "History"))
         self.History_button.setShortcut(_translate("WORDLE", "H"))
         self.button.setText(_translate("WORDLE", "Enter"))
-        self.button.setShortcut(_translate("WORDLE", "Enter"))
+        self.button.setShortcut(_translate("WORDLE", "Ctrl+Return"))
         self.button2.setText(_translate("WORDLE", "Start"))
         self.button2.setShortcut(_translate("WORDLE", "E"))
 
@@ -150,7 +151,7 @@ class Ui_WORDLE(object):
             pass
 
         elif self.need_restart:
-            self.label.setText("Click on Reset to play new button")
+            self.label.setText("Click on Start to play")
 
         elif self._submit_counter<6:
 
