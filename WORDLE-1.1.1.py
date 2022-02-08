@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import matplotlib.pyplot as plt
 import sys
 import numpy as np
 import random
@@ -28,8 +29,7 @@ class Ui_WORDLE(object):
 
         font1 = QtGui.QFont()
         font1.setPointSize(14)
-
-
+        
         self.horizontalLayoutWidget = QtWidgets.QWidget(WORDLE)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(0, 9, 861, 511))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
@@ -40,34 +40,40 @@ class Ui_WORDLE(object):
         
         
         self.label = QtWidgets.QLabel(self.horizontalLayoutWidget)
+        self.label.adjustSize()
         self.label.setFont(font)
         self.label.setText("")
         self.label.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.label.setObjectName("label")
+        self.label.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse|QtCore.Qt.TextSelectableByMouse)        
         self.horizontalLayout.addWidget(self.label)
         
-        
-        
         self.label2 = QtWidgets.QLabel(self.horizontalLayoutWidget)
+        self.label2.adjustSize()
         self.label2.setFont(font)
         self.label2.setText("")
         self.label2.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.label2.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse|QtCore.Qt.TextSelectableByMouse)
         self.label2.setObjectName("label2")
         self.horizontalLayout.addWidget(self.label2)
         
         
         
         self.label_word = QtWidgets.QLabel(self.horizontalLayoutWidget)
+        self.label_word.adjustSize()
         self.label_word.setFont(font1)
         self.label_word.setText("")
         self.label_word.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.label_word.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse|QtCore.Qt.TextSelectableByMouse)
         self.label_word.setObjectName("label_word")
         self.horizontalLayout.addWidget(self.label_word)
         
         
         self.label3 = QtWidgets.QLabel(self.horizontalLayoutWidget)
+        self.label3.adjustSize()
         self.label3.setText("")
         self.label3.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.label3.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse|QtCore.Qt.TextSelectableByMouse)
         self.label3.setObjectName("label3")
         self.horizontalLayout.addWidget(self.label3)
         
@@ -84,13 +90,15 @@ class Ui_WORDLE(object):
         
         
         
+# ====================================== Stats Button ======================================
         
         self.Stats_Button = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.Stats_Button.setObjectName("Stats_Button")
         self.Stats_Button.clicked.connect(self.stats)
         self.verticalLayout_2.addWidget(self.Stats_Button)
         
-        
+# ====================================== History Button ======================================
+
         self.History_button = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.History_button.setObjectName("History_button")
         self.History_button.clicked.connect(self.history)
@@ -101,7 +109,8 @@ class Ui_WORDLE(object):
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         
-        
+# ====================================== Input Feild ======================================
+
         self.input_text = QtWidgets.QLineEdit(self.horizontalLayoutWidget_2)
         self.input_text.setObjectName("input_text")
         self.input_text.setPlaceholderText("Enter The Word")
@@ -119,13 +128,15 @@ class Ui_WORDLE(object):
         self.horizontalLayout_2.addLayout(self.verticalLayout_3)
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
-        
+
+# ====================================== Enter Button ======================================
         
         self.button = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.button.setObjectName("button")
         self.button.clicked.connect(self.clicked)
         self.verticalLayout.addWidget(self.button)
         
+# ====================================== Start Button ======================================
         
         self.button2 = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.button2.setObjectName("button2")
@@ -134,6 +145,28 @@ class Ui_WORDLE(object):
         
         self.horizontalLayout_2.addLayout(self.verticalLayout)
 
+
+# ====================================== Made By Shayan Hyper Link ======================================
+
+        self.MadeByShayan = QtWidgets.QLabel(WORDLE)
+        self.MadeByShayan.setGeometry(QtCore.QRect(70, 570, 101, 16))
+        self.MadeByShayan.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.MadeByShayan.setOpenExternalLinks(True)
+        self.MadeByShayan.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse|QtCore.Qt.TextSelectableByMouse)
+        self.MadeByShayan.setObjectName("MadeByShayan")
+
+# ====================================== LOGO ======================================
+        self.logo_label = QtWidgets.QLabel(WORDLE)
+        self.logo_label.setGeometry(QtCore.QRect(47, 569, 20, 20))
+        self.logo_label.setMinimumSize(QtCore.QSize(20, 20))
+        self.logo_label.setMaximumSize(QtCore.QSize(55, 16777215))
+        self.logo_label.setText("")
+        self.logo_label.setPixmap(QtGui.QPixmap("C:\\Users\\Shayan\\Documents\\Python Scripts\\WORDLE\\2048px-Octicons-mark-github.svg.png"))
+        self.logo_label.setScaledContents(True)
+        self.logo_label.setObjectName("logo_label")
+        # self.logo_label.setOpenExternalLinks(True)
+
+
         self.retranslateUi(WORDLE)
         QtCore.QMetaObject.connectSlotsByName(WORDLE)
 
@@ -141,15 +174,16 @@ class Ui_WORDLE(object):
 
     def retranslateUi(self, WORDLE):
         _translate = QtCore.QCoreApplication.translate
-        WORDLE.setWindowTitle(_translate("WORDLE", "Form"))
+        WORDLE.setWindowTitle(_translate("WORDLE", "WORDLE"))
         self.Stats_Button.setText(_translate("WORDLE", "Stats"))
-        self.Stats_Button.setShortcut(_translate("WORDLE", "S"))
+        self.Stats_Button.setShortcut(_translate("WORDLE", "Ctrl+S"))
         self.History_button.setText(_translate("WORDLE", "History"))
-        self.History_button.setShortcut(_translate("WORDLE", "H"))
+        self.History_button.setShortcut(_translate("WORDLE", "Ctrl+H"))
         self.button.setText(_translate("WORDLE", "Enter"))
         self.button.setShortcut(_translate("WORDLE", "Ctrl+Return"))
         self.button2.setText(_translate("WORDLE", "Start"))
-        self.button2.setShortcut(_translate("WORDLE", "E"))
+        self.button2.setShortcut(_translate("WORDLE", "Ctrl+E"))
+        self.MadeByShayan.setText(_translate("WORDLE", "Made By <a href='https://github.com/shayandavoodii/WORDLEPY'>Shayan</a>"))
 
     def reset_clicked(self):
         self.need_restart = False
@@ -254,6 +288,9 @@ class Ui_WORDLE(object):
                                                 self.place_holder[i] = a[i]
                                                 self.place_holder_helper[i] = True
                                             info[a[i]] = True
+
+                                            if a[i] not in self.potential_letters:
+                                                self.potential_letters.append(a[i])
                         # ======================================== yellow area ========================================
                                         else:
                                             if counts[a[i]]>1 and self.chosen_word_frequency[a[i]]==1 and info[a[i]] ==True:
@@ -317,7 +354,6 @@ class Ui_WORDLE(object):
         """
         statistical analysis of historical results.
         """
-        import matplotlib.pyplot as plt
         # df = pd.read_csv("C:\\Users\\Shayan\\Documents\\Python Scripts\\WORDLE\\My WORDLE Log.txt" , sep=" " , header=None)
         df = pd.read_csv("My WORDLE Log.txt" , sep=" " , header=None)
         pairs = sorted(df[df.iloc[:,1]!='None'][1].value_counts().to_dict().items())
@@ -342,7 +378,6 @@ class Ui_WORDLE(object):
         """
         Historical plot of gaming.
         """
-        import matplotlib.pyplot as plt
         # df = pd.read_csv("C:\\Users\\Shayan\\Documents\\Python Scripts\\WORDLE\\My WORDLE Log.txt" , sep=" " , header=None)
         df = pd.read_csv("My WORDLE Log.txt" , sep=" " , header=None)
         fig, ax = plt.subplots()
