@@ -18,7 +18,6 @@ import numpy as np
 import random
 import pandas as pd
 import emoji
-import sys
 import datetime
 import re
 
@@ -240,8 +239,7 @@ class Ui_WORDLE(object):
                         if a.lower() in self.tries:
                             pass
                         
-                        else: 
-                        
+                        else:
                             a = a.lower()
                             self.tries.append(a)
 
@@ -367,13 +365,11 @@ class Ui_WORDLE(object):
 
 
     def stats(self):
-        """
-        statistical analysis of historical results.
-        """
+        """statistical analysis of historical results."""
         # df = pd.read_csv("C:\\Users\\Shayan\\Documents\\Python Scripts\\WORDLE\\My WORDLE Log.txt" , sep=" " , header=None)
         df = pd.read_csv("My WORDLE Log.txt" , sep=" " , header=None)
         pairs = sorted(df[df.iloc[:,1]!='None'][1].value_counts().to_dict().items())
-        fig, ax = plt.subplots()
+        _, ax = plt.subplots()
         fig1 = ax.bar([value[0] for value in pairs], height= [value[1] for value in pairs])
 
         if df.iloc[-1 , 1] == "None":
@@ -396,7 +392,7 @@ class Ui_WORDLE(object):
         """
         # df = pd.read_csv("C:\\Users\\Shayan\\Documents\\Python Scripts\\WORDLE\\My WORDLE Log.txt" , sep=" " , header=None)
         df = pd.read_csv("My WORDLE Log.txt" , sep=" " , header=None)
-        fig, ax = plt.subplots()
+        _, ax = plt.subplots()
         sorted_dates = sorted(df.iloc[:,0].value_counts().to_dict().keys())
         fig1 = ax.bar(sorted_dates , [df.iloc[:,0].value_counts().to_dict()[value] for value in sorted_dates])
         plt.title("Gaming History" , size = 20)
