@@ -1,5 +1,5 @@
 # <a name="WORDLEPY"></a><p align="center">WORDLEPY</p>
-**WORDLE Script in Python**  
+<p align="center">WORDLE Script in Python</p>
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/e607d3cbfd10434383a9cb2d04b530ed)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=shayandavoodii/WORDLEPY&amp;utm_campaign=Badge_Grade)
 
