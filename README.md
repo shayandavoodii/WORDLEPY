@@ -1,9 +1,11 @@
 # <a name="WORDLEPY"></a><p align="center">WORDLEPY</p>
-<p align="center">WORDLE Script in Python</p>
+<div  align="center">WORDLE Script in Python
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/e607d3cbfd10434383a9cb2d04b530ed)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=shayandavoodii/WORDLEPY&amp;utm_campaign=Badge_Grade)
 ![commits](https://badgen.net/github/commits/shayandavoodii/WORDLEPY/main)
 <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/shayandavoodii/WORDLEPY/main">
+
+</div>
 
 # 🔮Motivation
 I got familiar with [WORDLE](https://www.nytimes.com/games/wordle/index.html) through social media a year ago. I used to play it for consecutive days. However, I was unsatisfied with it. The game had limitations in rounds of playing (still has), and it only permits the users to play it once a day. Sometimes I tried it in several browsers to bypass the limit until I found the answer. But that didn't satisfy me because I wanted to play more and guess different words. So I decided to have my own WORDLE game. This is the motivation behind this work, and today (after more than a year), I decided to make this repo public. Maybe one day, I will come up with a lot of code refactoring  or even suitable design material. I'm not an application developer, and in those moments, I just wanted to incorporate features that I wanted into the application and ignored the code's design and maintainability.
